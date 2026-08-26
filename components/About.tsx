@@ -1,4 +1,5 @@
 import SectionHeader from "./SectionHeader";
+import Image from "next/image"; 
 
 export default function About() {
   return (
@@ -6,18 +7,24 @@ export default function About() {
       <SectionHeader command="whoami" title="About" />
       
       <div className="pane p-6 sm:p-8">
-        <div className="mb-6 flex items-center gap-3 border-b border-panelborder pb-4">
-          <div className="h-12 w-12 shrink-0 rounded-full bg-panelborder/50 p-1">
-             {/* Replace with your actual profile picture path later */}
-            <div className="h-full w-full rounded-full bg-cyan/20"></div>
+        <div className="mb-6 flex items-center gap-4 border-b border-panelborder pb-5">
+          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-panelborder p-1 sm:h-20 sm:w-20">
+             {/* Added width and height props required by Next.js */}
+             <Image 
+               src="/profile.png" 
+               alt="Mohamad Yazid Zaim" 
+               width={80}
+               height={80}
+               className="h-full w-full rounded-full object-cover" 
+             />
           </div>
           <div>
-            <h3 className="font-mono text-lg font-bold text-ink">Mohamad Yazid Zaim</h3>
-            <p className="font-mono text-xs text-cyan">System.Admin & Software.Dev</p>
+            <h3 className="font-mono text-xl font-bold text-ink sm:text-2xl">Mohamad Yazid Zaim</h3>
+            <p className="mt-1 font-mono text-xs text-cyan sm:text-sm">Software Development & System Admin</p>
           </div>
         </div>
 
-        <div className="space-y-4 font-mono text-sm leading-relaxed text-muted">
+        <div className="space-y-4 font-mono text-sm leading-relaxed text-muted sm:text-base">
           <p>
             I am a software developer and IT specialist graduating this August with a Bachelor of Computer Science in Netcentric Computing from UiTM Shah Alam. 
           </p>

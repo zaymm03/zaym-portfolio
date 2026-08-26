@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-jetbrains: "JetBrains Mono", monospace;
+  --font-inter: "Inter", sans-serif;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0B0F14;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(0, 217, 255, 0.06), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(255, 180, 84, 0.05), transparent 35%);
+}
+
+::selection {
+  background: #00D9FF;
+  color: #0B0F14;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F14;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E2733;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3644;
+}
+
+/* Terminal pane shell used to frame each section */
+.pane {
+  border: 1px solid #1E2733;
+  background: #131922;
+  border-radius: 8px;
+}
+
+.pane-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #1E2733;
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.75rem;
+  color: #7D8590;
+}
+
+.prompt::before {
+  content: "$ ";
+  color: #00D9FF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.text-muted {
+  color: #9CA3AF !important;
+}
+
+span.text-link, span.text-cyan, span.text-amber {
+  background: transparent !important;
+  text-shadow: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

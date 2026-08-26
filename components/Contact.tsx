@@ -14,7 +14,6 @@ export default function Contact() {
           I am currently open to new opportunities in software development and systems administration. Whether you have a question, a project proposal, or just want to say hi, my inbox is open and I'll try my best to get back to you!
         </p>
 
-        {/* REMEMBER TO CHANGE THIS EMAIL ADDRESS! */}
         <a
           href="mailto:yazidzaim03@gmail.com" 
           className="group inline-flex items-center gap-3 rounded-md border border-cyan/40 bg-cyan/10 px-6 py-3 font-mono text-sm font-bold text-cyan transition-all hover:bg-cyan/20 hover:shadow-[0_0_15px_rgba(0,217,255,0.2)]"

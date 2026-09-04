@@ -54,27 +54,25 @@ export default function About() {
               alt="Mohamad Yazid Zaim"
               width={80}
               height={80}
-              className={`h-full w-full rounded-full object-cover relative z-10 transition-opacity duration-300 ${
+              className={`h-full w-full rounded-full object-cover absolute inset-0 transition-opacity duration-300 ${
                 isHovered ? 'opacity-0' : 'opacity-100'
               }`}
             />
 
             {/* Second Image (hover reveal) */}
-            <div className="absolute inset-0 z-20 rounded-full overflow-hidden">
-              <Image
-                src="/profile-pixel.png"
-                alt="Mohamad Yazid Zaim - Pixel"
-                width={80}
-                height={80}
-                className={`h-full w-full rounded-full object-cover transition-opacity duration-300 ${
-                  isHovered ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            </div>
+            <Image
+              src="/profile-pixel.png"
+              alt="Mohamad Yazid Zaim - Pixel"
+              width={80}
+              height={80}
+              className={`h-full w-full rounded-full object-cover absolute inset-0 transition-opacity duration-300 ${
+                isHovered ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
 
             {/* Pixel Grid Overlay (only shows on hover) */}
             {isHovered && (
-              <div className="absolute inset-0 z-30 rounded-full overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                 <div
                   className="w-full h-full grid gap-0"
                   style={{

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SectionHeader from './SectionHeader';
 import Image from 'next/image';
 
@@ -8,9 +8,12 @@ const GRID_SIZE = 8;
 const ANIMATION_DURATION = 400; // ms
 
 export default function About() {
+  const [isHovered, setIsHovered] = useState(false);
   const [revealedPixels, setRevealedPixels] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+
     // Animate pixels disappearing in random order
     const pixels = Array.from(
       { length: GRID_SIZE * GRID_SIZE },
@@ -26,7 +29,12 @@ export default function About() {
         setRevealedPixels((prev) => new Set([...prev, pixel]));
       }, (index / shuffled.length) * ANIMATION_DURATION);
     });
-  }, []);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setRevealedPixels(new Set()); // Reset pixels
+  };
 
   return (
     <section id="about" className="mx-auto max-w-5xl px-4 py-16 sm:py-24">
@@ -35,44 +43,66 @@ export default function About() {
       <div className="pane p-6 sm:p-8">
         <div className="mb-6 flex items-center gap-4 border-b border-panelborder pb-5">
           {/* Profile Image Container with Pixel Transition */}
-          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-panelborder p-1 sm:h-20 sm:w-20 relative">
+          <div
+            className="h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-panelborder p-1 sm:h-20 sm:w-20 relative cursor-pointer"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* First Image (default) */}
             <Image
               src="/profile.png"
               alt="Mohamad Yazid Zaim"
               width={80}
               height={80}
-              className="h-full w-full rounded-full object-cover relative z-10"
+              className={`h-full w-full rounded-full object-cover relative z-10 transition-opacity duration-300 ${
+                isHovered ? 'opacity-0' : 'opacity-100'
+              }`}
             />
 
-            {/* Pixel Grid Overlay */}
-            <div className="absolute inset-0 z-20 rounded-full overflow-hidden pointer-events-none">
-              <div
-                className="w-full h-full grid gap-0"
-                style={{
-                  gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-                  gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
-                }}
-              >
-                {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, i) => {
-                  const x = i % GRID_SIZE;
-                  const y = Math.floor(i / GRID_SIZE);
-                  const pixelKey = `${x}-${y}`;
-                  const isRevealed = revealedPixels.has(pixelKey);
-
-                  return (
-                    <div
-                      key={pixelKey}
-                      className={`transition-opacity duration-300 ease-out ${
-                        isRevealed ? 'opacity-0' : 'opacity-100'
-                      }`}
-                      style={{
-                        backgroundColor: '#000000',
-                      }}
-                    />
-                  );
-                })}
-              </div>
+            {/* Second Image (hover reveal) */}
+            <div className="absolute inset-0 z-20 rounded-full overflow-hidden">
+              <Image
+                src="/profile-pixel.png"
+                alt="Mohamad Yazid Zaim - Pixel"
+                width={80}
+                height={80}
+                className={`h-full w-full rounded-full object-cover transition-opacity duration-300 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
             </div>
+
+            {/* Pixel Grid Overlay (only shows on hover) */}
+            {isHovered && (
+              <div className="absolute inset-0 z-30 rounded-full overflow-hidden pointer-events-none">
+                <div
+                  className="w-full h-full grid gap-0"
+                  style={{
+                    gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                    gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
+                  }}
+                >
+                  {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, i) => {
+                    const x = i % GRID_SIZE;
+                    const y = Math.floor(i / GRID_SIZE);
+                    const pixelKey = `${x}-${y}`;
+                    const isRevealed = revealedPixels.has(pixelKey);
+
+                    return (
+                      <div
+                        key={pixelKey}
+                        className={`transition-opacity duration-300 ease-out ${
+                          isRevealed ? 'opacity-0' : 'opacity-100'
+                        }`}
+                        style={{
+                          backgroundColor: '#000000',
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
